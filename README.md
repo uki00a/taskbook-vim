@@ -8,6 +8,7 @@
 - [VUI](https://github.com/waldson/vui)
 - [Unite.vim(optional)](https://github.com/Shougo/unite.vim)
 - [Denite.nvim(optional)](https://github.com/Shougo/denite.nvim)
+- [vimproc(optional)](https://github.com/Shougo/vimproc.vim)
 
 ## Usage
 

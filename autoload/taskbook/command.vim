@@ -2,35 +2,35 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! taskbook#command#create_task(args) abort
-  call s:system('tb -t ' . s:prepare_description(a:args))
+  call taskbook#utils#system('tb -t ' . s:prepare_description(a:args))
 endfunction
 
 function! taskbook#command#create_note(args) abort
-  call s:system('tb -n ' . s:prepare_description(a:args))
+  call taskbook#utils#system('tb -n ' . s:prepare_description(a:args))
 endfunction
 
 function! taskbook#command#begin(ids) abort
-  call s:system('tb -b ' . s:prepare_ids(a:ids))
+  call taskbook#utils#system('tb -b ' . s:prepare_ids(a:ids))
 endfunction
 
 function! taskbook#command#star(ids) abort
-  call s:system('tb -s ' . s:prepare_ids(a:ids))
+  call taskbook#utils#system('tb -s ' . s:prepare_ids(a:ids))
 endfunction
 
 function! taskbook#command#check(ids) abort
-  call s:system('tb -c ' . s:prepare_ids(a:ids))
+  call taskbook#utils#system('tb -c ' . s:prepare_ids(a:ids))
 endfunction
 
 function! taskbook#command#delete(ids) abort
-  call s:system('tb -d ' . s:prepare_ids(a:ids))
+  call taskbook#utils#system('tb -d ' . s:prepare_ids(a:ids))
 endfunction
 
 function! taskbook#command#restore(ids) abort
-  call s:system('tb -r ' . s:prepare_ids(a:ids))
+  call taskbook#utils#system('tb -r ' . s:prepare_ids(a:ids))
 endfunction
 
 function! taskbook#command#copy(ids) abort
-  call s:system('tb -y ' . s:prepare_ids(a:ids))
+  call taskbook#utils#system('tb -y ' . s:prepare_ids(a:ids))
 endfunction
 
 function! taskbook#command#move(args) abort
@@ -41,7 +41,7 @@ function! taskbook#command#move(args) abort
   else
     let args = s:build_cmd_args(a:args)
   endif
-  call s:system('tb -m ' . args)
+  call taskbook#utils#system('tb -m ' . args)
 endfunction
 
 function! taskbook#command#edit(args) abort
@@ -52,11 +52,11 @@ function! taskbook#command#edit(args) abort
   else
     let args = s:build_cmd_args(a:args)
   endif
-  call s:system('tb -e ' . args)
+  call taskbook#utils#system('tb -e ' . args)
 endfunction
 
 function! taskbook#command#clear() abort
-  call s:system('tb --clear')
+  call taskbook#utils#system('tb --clear')
 endfunction
 
 function! taskbook#command#set_normal_priority(...) abort
@@ -78,7 +78,7 @@ function! s:set_priority(priority, args) abort
     let id = a:args[0]
   endif
   let args = s:build_cmd_args(['@' . id, a:priority])
-  call s:system('tb -p ' . args)
+  call taskbook#utils#system('tb -p ' . args)
 endfunction
 
 function! s:prepare_ids(ids) abort
@@ -108,15 +108,6 @@ endfunction
 
 function! s:escape_cmd_args(args) abort
   return map(a:args, 'shellescape(v:val)')
-endfunction
-
-function! s:system(cmd) abort
-  let output = system(a:cmd)
-  if v:shell_error
-    echohl Error | echon output | echohl None
-  else
-   echomsg output
-  endif
 endfunction
 
 let &cpo = s:save_cpo
