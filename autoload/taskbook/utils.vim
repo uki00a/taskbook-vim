@@ -20,7 +20,7 @@ function! taskbook#utils#system(cmd) abort
   if v:shell_error
     echohl Error | echon output | echohl None
   else
-   echomsg output
+    echomsg output
   endif
 endfunction
 
